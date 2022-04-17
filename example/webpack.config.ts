@@ -138,7 +138,7 @@ const clientEntryConfig = merge(commonConfig, {
 // Server
 // ----------------------------------------------------------------------------
 
-export const serverEntryConfig = merge(commonConfig, {
+const serverEntryConfig = merge(commonConfig, {
     target: 'node',
 
     entry: {
