@@ -20,9 +20,6 @@ export class VueSsrAssetRenderer {
             ...matchedComponents,
         ]
 
-        console.info('manifest', this.#manifest)
-        console.info('components', components)
-
         const allJs = new Set<string>()
         const allCss = new Set<string>()
 
