@@ -2,7 +2,7 @@ import express from 'express'
 import http from 'http'
 import assert from 'assert'
 import { VueSsrAssetRenderer } from '../../src'
-import { renderToString, type SSRContext } from '@vue/server-renderer'
+import { renderToString } from '@vue/server-renderer'
 import { createApp } from './app'
 import path from 'path'
 
@@ -40,9 +40,9 @@ function createVueHandler() {
 
     return createAsyncHandler(async(req, res) => {
         const targetUrl = req.originalUrl
-        const ssrContext: SSRContext = {
+        const ssrContext = {
             url: targetUrl,
-            _matchedComponents: new Set(),
+            _matchedComponents: new Set<string>(),
         }
 
         const { app, router } = await createApp(ssrContext)
@@ -53,7 +53,7 @@ function createVueHandler() {
 
         // Render the app on the server
         const appHtml = await renderToString(app, ssrContext)
-        const { header, footer } = assetRenderer.renderAssets(ssrContext._matchedComponents as Set<string>)
+        const { header, footer } = assetRenderer.renderAssets(ssrContext._matchedComponents)
 
         res.setHeader('Content-Type', 'text/html')
         res.status(200)

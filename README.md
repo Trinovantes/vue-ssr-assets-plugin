@@ -90,7 +90,7 @@ const serverEntryConfig = merge(commonConfig, {
 import App from './App.vue'
 import { createSSRApp } from 'vue'
 import { createRouter } from 'vue-router'
-import { SSRContext, renderToString } from '@vue/server-renderer'
+import { renderToString } from '@vue/server-renderer'
 import { readFileSync } from 'fs'
 import { AssetsManifest, VueSsrAssetRenderer } from 'vue-ssr-assets-plugin'
 
@@ -106,8 +106,8 @@ import { AssetsManifest, VueSsrAssetRenderer } from 'vue-ssr-assets-plugin'
 const assetRenderer = new VueSsrAssetRenderer('/path/to/ssr-manifest.json')
 
 async function handleRequest(req, res) {
-    const ssrContext: SSRContext = {
-        _matchedComponents: new Set(),
+    const ssrContext = {
+        _matchedComponents: new Set<string>(),
     }
 
     const app = createSSRApp(App)
@@ -116,7 +116,7 @@ async function handleRequest(req, res) {
     app.use(router)
 
     const appHtml = await renderToString(app, ssrContext)
-    const { header, footer } = assetRenderer.renderAssets(ssrContext._matchedComponents as Set<string>)
+    const { header, footer } = assetRenderer.renderAssets(ssrContext._matchedComponents)
 
     res.setHeader('Content-Type', 'text/html')
     res.status(200)
