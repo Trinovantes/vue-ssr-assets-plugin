@@ -1,0 +1,100 @@
+{
+    "name": "vue-ssr-assets-plugin",
+    "version": "0.1.0",
+    "description": "Webpack 5 plugin for Vue 3 SSR applications to generate manifest of critical assets",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "README.md",
+        "dist/*",
+        "src/*"
+    ],
+    "repository": "https://github.com/Trinovantes/vue-ssr-assets-plugin",
+    "author": "Stephen Li <hello@stephenli.ca> (https://www.stephenli.ca)",
+    "license": "MIT",
+    "private": false,
+    "scripts": {
+        "dev": "  cross-env NODE_ENV=development tsc -p tsconfig.dev.json --watch",
+        "build": "cross-env NODE_ENV=production  tsc -p tsconfig.prod.json",
+        "prepublishOnly": "rm -rf ./dist && yarn build",
+        "lint": "eslint --ext '.ts' --ignore-path .gitignore .",
+        "test": "jest",
+        "exDev": "  cross-env NODE_ENV=development webpack --watch --config example/webpack.config.ts",
+        "exBuild": "cross-env NODE_ENV=production  webpack         --config example/webpack.config.ts",
+        "exWatch": "cross-env NODE_ENV=development nodemon -r source-map-support/register dist/example/www.js --watch dist/example",
+        "exStart": "cross-env NODE_ENV=production  node    -r source-map-support/register dist/example/www.js"
+    },
+    "babel": {
+        "presets": [
+            "@babel/preset-env",
+            "@babel/preset-typescript"
+        ],
+        "plugins": [
+            [
+                "@babel/transform-runtime"
+            ],
+            [
+                "transform-define",
+                {}
+            ]
+        ]
+    },
+    "jest": {
+        "bail": true,
+        "setupFiles": [
+            "./tests/setup.ts"
+        ]
+    },
+    "dependencies": {
+        "ajv": "^8.6.0"
+    },
+    "peerDependencies": {
+        "webpack": "^5.28.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.12.10",
+        "@babel/plugin-transform-runtime": "^7.15.0",
+        "@babel/preset-env": "^7.12.11",
+        "@babel/preset-typescript": "^7.12.7",
+        "@babel/register": "^7.13.14",
+        "@types/express": "^4.17.11",
+        "@types/jest": "^27.0.1",
+        "@types/jsdom": "^16.2.13",
+        "@types/node": "^14",
+        "@types/webpack": "^5.28.0",
+        "@types/webpack-node-externals": "^2.5.3",
+        "@typescript-eslint/eslint-plugin": "^5.10.0",
+        "@typescript-eslint/parser": "^5.19.0",
+        "@vue/server-renderer": "^3.2.33",
+        "babel-plugin-transform-define": "^2.0.0",
+        "copy-webpack-plugin": "^10.2.4",
+        "cross-env": "^7.0.3",
+        "css-loader": "^6.7.1",
+        "esbuild-loader": "^2.18.0",
+        "eslint": "^8.7.0",
+        "eslint-config-standard": "^17.0.0-0",
+        "eslint-import-resolver-typescript": "^2.7.1",
+        "eslint-plugin-import": "^2.26.0",
+        "eslint-plugin-n": "^15.0.1",
+        "eslint-plugin-node": "^11.1.0",
+        "eslint-plugin-promise": "^6.0.0",
+        "eslint-plugin-vue": "^8.6.0",
+        "express": "^4.17.3",
+        "jest": "^27.1.0",
+        "mini-css-extract-plugin": "^2.6.0",
+        "null-loader": "^4.0.1",
+        "sass": "^1.50.0",
+        "sass-loader": "^12.6.0",
+        "typescript": "^4.2.4",
+        "vue": "^3.2.33",
+        "vue-loader": "^17.0.0",
+        "vue-router": "^4.0.14",
+        "webpack": "^5.72.0",
+        "webpack-cli": "^4.9.2",
+        "webpack-merge": "^5.8.0",
+        "webpack-node-externals": "^3.0.0"
+    },
+    "engines": {
+        "node": ">=14"
+    }
+}
