@@ -14,16 +14,19 @@ export class VueSsrAssetsClientPlugin implements WebpackPluginInstance {
         this.#options = options
     }
 
+    get #fileName(): string {
+        assert(this.#options)
+        return this.#options.fileName
+    }
+
     apply(compiler: Compiler) {
         compiler.hooks.thisCompilation.tap(PLUGIN_NAME, (compilation) => {
             compilation.hooks.processAssets.tap({
                 name: PLUGIN_NAME,
                 stage: Compilation.PROCESS_ASSETS_STAGE_PRE_PROCESS,
             }, () => {
-                assert(this.#options?.fileName)
-
                 const outputDir = compiler.options.output.path ?? './'
-                const outputRelPath = path.relative(outputDir, this.#options.fileName)
+                const outputRelPath = path.relative(outputDir, this.#fileName)
 
                 const dependenciesMap = findComponentDependencies(compilation)
                 const outputJson = exportDependencyMap(dependenciesMap)
