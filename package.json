@@ -14,7 +14,7 @@
     "license": "MIT",
     "private": false,
     "scripts": {
-        "dev": "  cross-env NODE_ENV=development tsc -p tsconfig.dev.json --watch",
+        "dev": "  cross-env NODE_ENV=development tsc -p tsconfig.prod.json --watch",
         "build": "cross-env NODE_ENV=production  tsc -p tsconfig.prod.json",
         "prepublishOnly": "rm -rf ./dist && yarn build",
         "lint": "eslint --ext '.ts' --ignore-path .gitignore .",
