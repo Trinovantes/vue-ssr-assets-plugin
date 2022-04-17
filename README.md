@@ -1,10 +1,42 @@
 # Vue SSR Assets Plugin
 
-This is a Webpack 5 plugin for Vue 3 SSR applications to generate manifest of critical assets.
+This is a Webpack 5 plugin for Vue 3 SSR applications to generate manifest of critical assets. This package consists of two plugins: one for the client bundle and one for the server bundle similar to how SSR in Vue 2 worked.
 
 Out of the box, Vue 3 SSR loads the entry bundle (e.g. `main.js`) that then asynchronously loads the remaining files needed for the page. However, this results in a poor user experience due to [FOUC](https://en.wikipedia.org/wiki/Flash_of_unstyled_content) and poor web performance scores.
 
-This package consists of two plugins, one for the client bundle and one for the server bundle.
+### Before
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/public/main.64381ac7ca0c0b20aee8.css">
+    <link rel="preload" href="/public/main.222b5c717defa040360d.js" as="script">
+</head>
+<body>
+    <div id="app">...</div>
+    <script src="/public/main.222b5c717defa040360d.js" defer></script>
+</body>
+</html>
+```
+
+### After
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/public/main.64381ac7ca0c0b20aee8.css">
+    <link rel="preload" href="/public/main.222b5c717defa040360d.js" as="script">
+    <link rel="preload" href="/public/762.402cdc4e5ac18e420857.js" as="script"> <!-- New -->
+</head>
+<body>
+    <div id="app">...</div>
+    <script src="/public/main.222b5c717defa040360d.js" defer></script>
+    <script src="/public/762.402cdc4e5ac18e420857.js" defer></script> <!-- New -->
+</body>
+</html>
+```
 
 ## Client Plugin
 
