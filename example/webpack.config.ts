@@ -127,7 +127,11 @@ const clientEntryConfig = merge(commonConfig, {
                 },
             ],
         }),
-        new MiniCssExtractPlugin(),
+        new MiniCssExtractPlugin({
+            filename: isDev
+                ? '[name].css'
+                : '[name].[contenthash].css',
+        }),
         new VueSsrAssetsClientPlugin({
             fileName: manifestFile,
         }),
