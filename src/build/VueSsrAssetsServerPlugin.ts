@@ -7,7 +7,7 @@ import { validateServerPluginOptions, VueSsrAssetsServerPluginOptions } from './
 import { existsSync } from 'fs'
 
 export class VueSsrAssetsServerPlugin implements WebpackPluginInstance {
-    #options?: VueSsrAssetsServerPluginOptions
+    #options: VueSsrAssetsServerPluginOptions
 
     constructor(options: VueSsrAssetsServerPluginOptions = {}) {
         validateServerPluginOptions(options)
@@ -23,6 +23,7 @@ export class VueSsrAssetsServerPlugin implements WebpackPluginInstance {
     #setupLoader(compiler: Compiler) {
         const loaderPath = path.join(__dirname, '../loader')
         const loaderExt = existsSync(`${loaderPath}.ts`) ? 'ts' : 'js'
+        const loader = `${loaderPath}.${loaderExt}`
 
         compiler.hooks.compilation.tap(PLUGIN_NAME, (compilation) => {
             NormalModule.getCompilationHooks(compilation).beforeLoaders.tap(PLUGIN_NAME, (loaderItems, normalModule) => {
@@ -34,7 +35,7 @@ export class VueSsrAssetsServerPlugin implements WebpackPluginInstance {
                 }
 
                 // Only use loader once per module
-                if (loaderItems.find((loaderItem) => loaderItem.loader === loaderPath)) {
+                if (loaderItems.find((loaderItem) => loaderItem.loader === loader)) {
                     return
                 }
 
@@ -42,7 +43,7 @@ export class VueSsrAssetsServerPlugin implements WebpackPluginInstance {
                 const vueLoaderIdx = loaderItems.findIndex((loaderItem) => loaderItem.loader.includes('vue-loader/dist/index.js'))
 
                 loaderItems.splice(vueLoaderIdx - 1, 0, {
-                    loader: `${loaderPath}.${loaderExt}`,
+                    loader,
                     options: this.#options,
                     ident: null,
                     type: null,
