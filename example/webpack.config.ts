@@ -55,6 +55,10 @@ const commonConfig: Configuration = {
         new VueLoaderPlugin(),
     ],
 
+    optimization: {
+        minimize: false,
+    },
+
     module: {
         rules: [
             {
