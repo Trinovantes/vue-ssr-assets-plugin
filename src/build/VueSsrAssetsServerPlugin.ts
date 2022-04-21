@@ -16,6 +16,10 @@ export class VueSsrAssetsServerPlugin implements WebpackPluginInstance {
     }
 
     apply(compiler: Compiler) {
+        if (compiler.options.target !== 'node') {
+            throw new Error('VueSsrAssetsServerPlugin should only be used for server bundles (target:"node")')
+        }
+
         this.#setupLoader(compiler)
         this.#setupPlaceholderReplacer(compiler)
     }
@@ -32,11 +36,6 @@ export class VueSsrAssetsServerPlugin implements WebpackPluginInstance {
      */
     #setupLoader(compiler: Compiler) {
         compiler.hooks.compilation.tap(PLUGIN_NAME, (compilation) => {
-            // Only instrument SSR builds that target node
-            if (compilation.options.target !== 'node') {
-                return
-            }
-
             NormalModule.getCompilationHooks(compilation).beforeLoaders.tap(PLUGIN_NAME, (loaderItems, normalModule) => {
                 const request = normalModule.request
 

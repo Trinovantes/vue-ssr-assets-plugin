@@ -20,6 +20,10 @@ export class VueSsrAssetsClientPlugin implements WebpackPluginInstance {
     }
 
     apply(compiler: Compiler) {
+        if (compiler.options.target !== 'web') {
+            throw new Error('VueSsrAssetsClientPlugin should only be used for client bundles (target:"web")')
+        }
+
         compiler.hooks.thisCompilation.tap(PLUGIN_NAME, (compilation) => {
             compilation.hooks.processAssets.tap({
                 name: PLUGIN_NAME,
