@@ -24,3 +24,10 @@ const childNum = computed(() => props.num + 1)
         />
     </article>
 </template>
+
+<style lang="scss" scoped>
+h2{
+    background-color: green;
+    color: white;
+}
+</style>

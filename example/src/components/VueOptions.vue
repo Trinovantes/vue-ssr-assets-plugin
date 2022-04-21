@@ -32,3 +32,10 @@ export default defineComponent({
         />
     </article>
 </template>
+
+<style lang="scss" scoped>
+h2{
+    background-color: red;
+    color: white;
+}
+</style>

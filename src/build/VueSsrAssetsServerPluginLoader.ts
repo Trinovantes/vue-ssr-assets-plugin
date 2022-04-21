@@ -9,7 +9,7 @@ export function VueSsrAssetsServerPluginLoader(this: LoaderContext<VueSsrAssetsS
     const ssrContextTracker = options.ssrContextTracker ?? '_matchedComponents'
 
     const regex = options.isScriptSetup
-        ? /<script.*?setup.*?>/
+        ? /setup\(__props\)\s+{/
         : /export function ssrRender[^{]*{/
 
     const match = regex.exec(source)
@@ -30,9 +30,11 @@ export function VueSsrAssetsServerPluginLoader(this: LoaderContext<VueSsrAssetsS
         ctx.${ssrContextTracker}.add(${CHUNK_ID_PLACEHOLDER});
     })();`
 
-    const modifiedSource = options.isScriptSetup
-        ? source.slice(0, injectionPoint) + importStatement + injection + source.slice(injectionPoint)
-        : importStatement + source.slice(0, injectionPoint) + injection + source.slice(injectionPoint)
+    const modifiedSource = '' +
+        importStatement +
+        source.slice(0, injectionPoint) +
+        injection +
+        source.slice(injectionPoint)
 
     return modifiedSource
 }

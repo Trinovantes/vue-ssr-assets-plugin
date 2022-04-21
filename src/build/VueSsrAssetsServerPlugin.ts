@@ -59,7 +59,7 @@ export class VueSsrAssetsServerPlugin implements WebpackPluginInstance {
                 }
 
                 const insertLoaderIdx = isScriptSetup
-                    ? loaderItems.findIndex((loaderItem) => loaderItem.loader.includes('vue-loader/dist/index.js')) + 1 // Inject into <script> before it gets processed by vue-loader
+                    ? loaderItems.findIndex((loaderItem) => loaderItem.loader.includes('vue-loader/dist/index.js')) // Inject into <script> before it gets processed by vue-loader
                     : loaderItems.findIndex((loaderItem) => loaderItem.loader.includes('vue-loader/dist/templateLoader.js')) // Inject into ssrRender after <template> is processed by vue-loader
 
                 const options: VueSsrAssetsServerPluginOptions & VueSsrAssetsServerPluginLoaderOptions = {
