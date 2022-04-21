@@ -31,6 +31,11 @@ export class VueSsrAssetsServerPlugin implements WebpackPluginInstance {
      */
     #setupLoader(compiler: Compiler) {
         compiler.hooks.compilation.tap(PLUGIN_NAME, (compilation) => {
+            // Only instrument SSR builds that target node
+            if (compilation.options.target !== 'node') {
+                return
+            }
+
             NormalModule.getCompilationHooks(compilation).beforeLoaders.tap(PLUGIN_NAME, (loaderItems, normalModule) => {
                 const request = normalModule.request
 

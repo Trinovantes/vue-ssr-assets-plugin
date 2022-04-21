@@ -4,12 +4,7 @@ import type { VueSsrAssetsServerPluginOptions } from './VueSsrAssetsServerPlugin
 import type { VueSsrAssetsServerPluginLoaderOptions } from './VueSsrAssetsServerPluginLoaderOptions'
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export function VueSsrAssetsServerPluginLoader(this: LoaderContext<VueSsrAssetsServerPluginOptions & VueSsrAssetsServerPluginLoaderOptions> & { target: string }, source: string): string {
-    // Only instrument SSR builds that target node
-    if (this.target !== 'node') {
-        return source
-    }
-
+export function VueSsrAssetsServerPluginLoader(this: LoaderContext<VueSsrAssetsServerPluginOptions & VueSsrAssetsServerPluginLoaderOptions>, source: string): string {
     const options = this.getOptions()
     const ssrContextTracker = options.ssrContextTracker ?? '_matchedComponents'
 
