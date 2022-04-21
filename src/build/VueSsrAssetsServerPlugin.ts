@@ -19,32 +19,50 @@ export class VueSsrAssetsServerPlugin implements WebpackPluginInstance {
         this.#setupPlaceholderReplacer(compiler)
     }
 
-    // Set up loader that will insert CHUNK_ID_PLACEHOLDER into vue's render functions
+    /**
+     * Set up loader to insert CHUNK_ID_PLACEHOLDER into each Vue component's render/setup function
+     *
+     * For options and normal composition (just special case of options)
+     *      We need to rewrite ssrRender function
+     *
+     * For script setup
+     *      We need to modify the auto generated setup() function instead since vue-loader bypasses webpack's loader chain
+     *      and directly compiles the original <template>
+     */
     #setupLoader(compiler: Compiler) {
-        const loaderPath = path.join(__dirname, '../loader')
-        const loaderExt = existsSync(`${loaderPath}.ts`) ? 'ts' : 'js'
-        const loader = `${loaderPath}.${loaderExt}`
-
         compiler.hooks.compilation.tap(PLUGIN_NAME, (compilation) => {
             NormalModule.getCompilationHooks(compilation).beforeLoaders.tap(PLUGIN_NAME, (loaderItems, normalModule) => {
-                // Only use loader on <template> modules
-                // e.g. esbuild-loader!/App.vue?vue&type=template
                 const request = normalModule.request
-                if (!/\.vue\?vue&type=template/.test(request)) {
+
+                // e.g. esbuild-loader!/App.vue?vue&type=script&setup=true
+                const isScriptSetup = /\.vue\?vue&type=script/.test(request) && /setup=true/.test(request)
+
+                // e.g. esbuild-loader!/App.vue?vue&type=template
+                const isTemplate = /\.vue\?vue&type=template/.test(request) && !isScriptSetup
+
+                if (!isScriptSetup && !isTemplate) {
                     return
                 }
+
+                const loaderPath = path.join(__dirname, '../loader')
+                const loaderExt = existsSync(`${loaderPath}.ts`) ? 'ts' : 'js'
+                const loader = `${loaderPath}.${loaderExt}`
 
                 // Only use loader once per module
                 if (loaderItems.find((loaderItem) => loaderItem.loader === loader)) {
                     return
                 }
 
-                // Register this loader right after vue-loader converts <template> into render function
-                const vueLoaderIdx = loaderItems.findIndex((loaderItem) => loaderItem.loader.includes('vue-loader/dist/index.js'))
+                const insertLoaderIdx = isScriptSetup
+                    ? loaderItems.findIndex((loaderItem) => loaderItem.loader.includes('vue-loader/dist/index.js')) + 1 // Inject into <script> before it gets processed by vue-loader
+                    : loaderItems.findIndex((loaderItem) => loaderItem.loader.includes('vue-loader/dist/templateLoader.js')) // Inject into ssrRender after <template> is processed by vue-loader
 
-                loaderItems.splice(vueLoaderIdx - 1, 0, {
+                loaderItems.splice(insertLoaderIdx, 0, {
                     loader,
-                    options: this.#options,
+                    options: {
+                        ...this.#options,
+                        isScriptSetup,
+                    },
                     ident: null,
                     type: null,
                 })
