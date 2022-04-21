@@ -1,4 +1,4 @@
-import { CHUNK_ID_PLACEHOLDER } from '../Constants'
+import { CHUNK_ID_PLACEHOLDER, PLUGIN_NAME } from '../Constants'
 import type { LoaderContext } from 'webpack'
 import type { VueSsrAssetsServerPluginOptions } from './VueSsrAssetsServerPluginOptions'
 import type { VueSsrAssetsServerPluginLoaderOptions } from './VueSsrAssetsServerPluginLoaderOptions'
@@ -14,6 +14,8 @@ export function VueSsrAssetsServerPluginLoader(this: LoaderContext<VueSsrAssetsS
 
     const match = regex.exec(source)
     if (!match) {
+        const logger = this.getLogger(PLUGIN_NAME)
+        logger.warn(`Failed to inject runtime code into "${options.componentName}"`)
         return source
     }
 

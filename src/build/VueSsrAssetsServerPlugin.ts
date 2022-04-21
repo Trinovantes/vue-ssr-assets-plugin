@@ -5,6 +5,7 @@ import { Compiler, javascript, NormalModule, WebpackPluginInstance } from 'webpa
 import { ChunkIdValueDependency } from './ChunkIdValueDependency'
 import { validateServerPluginOptions, VueSsrAssetsServerPluginOptions } from './VueSsrAssetsServerPluginOptions'
 import { existsSync } from 'fs'
+import type { VueSsrAssetsServerPluginLoaderOptions } from './VueSsrAssetsServerPluginLoaderOptions'
 
 export class VueSsrAssetsServerPlugin implements WebpackPluginInstance {
     #options: VueSsrAssetsServerPluginOptions
@@ -62,12 +63,15 @@ export class VueSsrAssetsServerPlugin implements WebpackPluginInstance {
                     ? loaderItems.findIndex((loaderItem) => loaderItem.loader.includes('vue-loader/dist/index.js')) + 1 // Inject into <script> before it gets processed by vue-loader
                     : loaderItems.findIndex((loaderItem) => loaderItem.loader.includes('vue-loader/dist/templateLoader.js')) // Inject into ssrRender after <template> is processed by vue-loader
 
+                const options: VueSsrAssetsServerPluginOptions & VueSsrAssetsServerPluginLoaderOptions = {
+                    ...this.#options,
+                    isScriptSetup,
+                    componentName: getComponentName(normalModule) ?? '',
+                }
+
                 loaderItems.splice(insertLoaderIdx, 0, {
                     loader,
-                    options: {
-                        ...this.#options,
-                        isScriptSetup,
-                    },
+                    options,
                     ident: null,
                     type: null,
                 })
