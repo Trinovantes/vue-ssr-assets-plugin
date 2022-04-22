@@ -1,7 +1,7 @@
 import { CHUNK_ID_PLACEHOLDER, PLUGIN_NAME } from '../Constants'
 import type { LoaderContext } from 'webpack'
 import type { VueSsrAssetsServerPluginOptions } from './VueSsrAssetsServerPluginOptions'
-import type { VueSsrAssetsServerPluginLoaderOptions } from './VueSsrAssetsServerPluginLoaderOptions'
+import type { VueSsrAssetsServerPluginLoaderOptions } from './VueSsrAssetsServerLoaderOptions'
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export function VueSsrAssetsServerPluginLoader(this: LoaderContext<VueSsrAssetsServerPluginOptions & VueSsrAssetsServerPluginLoaderOptions>, source: string): string {

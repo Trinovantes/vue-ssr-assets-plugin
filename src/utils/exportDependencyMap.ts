@@ -1,4 +1,4 @@
-import type { AssetsManifest } from '../build/AssetsManifest'
+import type { AssetsManifest } from '../client/AssetsManifest'
 import type { ComponentDependencyMap } from './findComponentDependencies'
 
 export function exportDependencyMap(dependencyMap: ComponentDependencyMap) {

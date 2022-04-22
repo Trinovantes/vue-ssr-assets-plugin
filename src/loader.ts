@@ -1,3 +1,3 @@
-import { VueSsrAssetsServerPluginLoader } from './build/VueSsrAssetsServerPluginLoader'
+import { VueSsrAssetsServerPluginLoader } from './server/VueSsrAssetsServerLoader'
 
 export default VueSsrAssetsServerPluginLoader

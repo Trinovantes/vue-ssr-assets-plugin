@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs'
-import type { AssetsManifest } from '../build/AssetsManifest'
+import type { AssetsManifest } from '../client/AssetsManifest'
 
 export class VueSsrAssetRenderer {
     #manifest: AssetsManifest

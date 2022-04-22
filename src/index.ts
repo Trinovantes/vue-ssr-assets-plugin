@@ -1,9 +1,9 @@
 // For use in build scripts e.g. webpack.config.ts
-export * from './build/AssetsManifest'
-export * from './build/VueSsrAssetsClientPlugin'
-export * from './build/VueSsrAssetsClientPluginOptions'
-export * from './build/VueSsrAssetsServerPlugin'
-export * from './build/VueSsrAssetsServerPluginOptions'
+export * from './server/VueSsrAssetsServerPlugin'
+export * from './server/VueSsrAssetsServerPluginOptions'
+export * from './client/AssetsManifest'
+export * from './client/VueSsrAssetsClientPlugin'
+export * from './client/VueSsrAssetsClientPluginOptions'
 
 // For use in server bundle e.g. entryServer.ts
-export * from './server/VueSsrAssetsRenderer'
+export * from './utils/VueSsrAssetsRenderer'

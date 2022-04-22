@@ -2,10 +2,10 @@ import { CHUNK_ID_PLACEHOLDER, PLUGIN_NAME } from '../Constants'
 import { getComponentName } from '../utils/getComponentName'
 import path from 'path'
 import { Compiler, javascript, NormalModule, WebpackPluginInstance } from 'webpack'
-import { ChunkIdValueDependency } from './ChunkIdValueDependency'
+import { ReplaceValueDependency } from './ReplaceValueDependency'
 import { validateServerPluginOptions, VueSsrAssetsServerPluginOptions } from './VueSsrAssetsServerPluginOptions'
 import { existsSync } from 'fs'
-import type { VueSsrAssetsServerPluginLoaderOptions } from './VueSsrAssetsServerPluginLoaderOptions'
+import type { VueSsrAssetsServerPluginLoaderOptions } from './VueSsrAssetsServerLoaderOptions'
 
 export class VueSsrAssetsServerPlugin implements WebpackPluginInstance {
     #options: VueSsrAssetsServerPluginOptions
@@ -81,7 +81,7 @@ export class VueSsrAssetsServerPlugin implements WebpackPluginInstance {
     // Set up hooks to replace CHUNK_ID_PLACEHOLDER added in previous step
     #setupPlaceholderReplacer(compiler: Compiler) {
         compiler.hooks.compilation.tap(PLUGIN_NAME, (compilation) => {
-            compilation.dependencyTemplates.set(ChunkIdValueDependency, new ChunkIdValueDependency.Template())
+            compilation.dependencyTemplates.set(ReplaceValueDependency, new ReplaceValueDependency.Template())
         })
 
         compiler.hooks.normalModuleFactory.tap(PLUGIN_NAME, (normalModuleFactory) => {
@@ -92,7 +92,7 @@ export class VueSsrAssetsServerPlugin implements WebpackPluginInstance {
                         return
                     }
 
-                    parser.state.module.addDependency(new ChunkIdValueDependency(expr, componentFileName))
+                    parser.state.module.addDependency(new ReplaceValueDependency(expr, componentFileName))
                 })
             }
 
