@@ -49,6 +49,10 @@ export class VueSsrAssetsServerPlugin implements WebpackPluginInstance {
                     return
                 }
 
+                if (isScriptSetup && compiler.options.mode === 'development') {
+                    return
+                }
+
                 const loaderPath = path.join(__dirname, '../loader')
                 const loaderExt = existsSync(`${loaderPath}.ts`) ? 'ts' : 'js'
                 const loader = `${loaderPath}.${loaderExt}`
