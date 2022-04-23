@@ -17,7 +17,7 @@
         "dev": "  cross-env NODE_ENV=development tsc -p tsconfig.prod.json --watch",
         "build": "cross-env NODE_ENV=production  tsc -p tsconfig.prod.json",
         "prepublishOnly": "rm -rf ./dist && yarn build",
-        "lint": "eslint --ext '.ts' --ignore-path .gitignore .",
+        "lint": "eslint --ext .ts,.js,.vue --ignore-path .gitignore .",
         "test": "jest",
         "exDev": "  cross-env NODE_ENV=development webpack --watch --config example/webpack.config.ts",
         "exBuild": "cross-env NODE_ENV=production  webpack         --config example/webpack.config.ts",
