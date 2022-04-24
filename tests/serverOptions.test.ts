@@ -8,6 +8,14 @@ describe('VueSsrAssetsServerPluginOptions', () => {
         expect(typeof options.ssrContextTracker).toBe('string')
     })
 
+    test('string ssrContextTracker', () => {
+        const options: VueSsrAssetsServerPluginOptions = {
+            ssrContextTracker: 'foundComponents',
+        }
+
+        expect(validateServerPluginOptions(options)).toBe(true)
+    })
+
     test('non string ssrContextTracker should throw', () => {
         const options = {
             ssrContextTracker: 42,
