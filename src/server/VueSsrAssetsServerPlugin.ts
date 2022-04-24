@@ -5,13 +5,14 @@ import { Compiler, javascript, NormalModule, WebpackPluginInstance } from 'webpa
 import { ReplaceValueDependency } from './ReplaceValueDependency'
 import { validateServerPluginOptions, VueSsrAssetsServerPluginOptions } from './VueSsrAssetsServerPluginOptions'
 import { existsSync } from 'fs'
-import type { VueSsrAssetsServerPluginLoaderOptions } from './VueSsrAssetsServerLoaderOptions'
+import type { VueSsrAssetsServerLoaderOptions } from './VueSsrAssetsServerLoaderOptions'
+import assert from 'assert'
 
 export class VueSsrAssetsServerPlugin implements WebpackPluginInstance {
-    #options: VueSsrAssetsServerPluginOptions
+    #options: Required<VueSsrAssetsServerPluginOptions>
 
     constructor(options: VueSsrAssetsServerPluginOptions = {}) {
-        validateServerPluginOptions(options)
+        assert(validateServerPluginOptions(options))
         this.#options = options
     }
 
@@ -66,7 +67,7 @@ export class VueSsrAssetsServerPlugin implements WebpackPluginInstance {
                     ? loaderItems.findIndex((loaderItem) => loaderItem.loader.includes('vue-loader/dist/index.js')) // Inject into <script> after it gets processed by vue-loader
                     : loaderItems.findIndex((loaderItem) => loaderItem.loader.includes('vue-loader/dist/templateLoader.js')) // Inject into ssrRender after <template> is processed by vue-loader
 
-                const options: VueSsrAssetsServerPluginOptions & VueSsrAssetsServerPluginLoaderOptions = {
+                const options: VueSsrAssetsServerLoaderOptions = {
                     ...this.#options,
                     isScriptSetup,
                     componentName: getComponentName(normalModule) ?? '',

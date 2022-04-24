@@ -7,16 +7,11 @@ import { validateClientPluginOptions, VueSsrAssetsClientPluginOptions } from './
 import assert from 'assert'
 
 export class VueSsrAssetsClientPlugin implements WebpackPluginInstance {
-    #options?: VueSsrAssetsClientPluginOptions
+    #options: Required<VueSsrAssetsClientPluginOptions>
 
-    constructor(options?: VueSsrAssetsClientPluginOptions) {
-        validateClientPluginOptions(options)
+    constructor(options: VueSsrAssetsClientPluginOptions) {
+        assert(validateClientPluginOptions(options))
         this.#options = options
-    }
-
-    get #fileName(): string {
-        assert(this.#options)
-        return this.#options.fileName
     }
 
     apply(compiler: Compiler) {
@@ -30,7 +25,7 @@ export class VueSsrAssetsClientPlugin implements WebpackPluginInstance {
                 stage: Compilation.PROCESS_ASSETS_STAGE_PRE_PROCESS,
             }, () => {
                 const outputDir = compiler.options.output.path ?? './'
-                const outputRelPath = path.relative(outputDir, this.#fileName)
+                const outputRelPath = path.relative(outputDir, this.#options.fileName)
 
                 const dependenciesMap = findComponentDependencies(compilation)
                 const outputJson = exportDependencyMap(dependenciesMap)

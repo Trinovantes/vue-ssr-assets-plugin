@@ -18,8 +18,8 @@ const validator = ajv.compile({
 export function validateClientPluginOptions(options: unknown): options is VueSsrAssetsClientPluginOptions {
     const isValid = validator(options)
     if (!isValid) {
-        console.warn('Invalid VueSsrAssetClientPluginOptions', validator.errors)
-        throw new Error('Invalid VueSsrAssetClientPluginOptions')
+        console.warn('Invalid VueSsrAssetsClientPluginOptions', validator.errors)
+        throw new Error('Invalid VueSsrAssetsClientPluginOptions')
     }
 
     return isValid

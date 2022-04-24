@@ -1,12 +1,11 @@
 import { CHUNK_ID_PLACEHOLDER, PLUGIN_NAME } from '../Constants'
 import type { LoaderContext } from 'webpack'
-import type { VueSsrAssetsServerPluginOptions } from './VueSsrAssetsServerPluginOptions'
-import type { VueSsrAssetsServerPluginLoaderOptions } from './VueSsrAssetsServerLoaderOptions'
+import type { VueSsrAssetsServerLoaderOptions } from './VueSsrAssetsServerLoaderOptions'
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export function VueSsrAssetsServerPluginLoader(this: LoaderContext<VueSsrAssetsServerPluginOptions & VueSsrAssetsServerPluginLoaderOptions>, source: string): string {
+export function VueSsrAssetsServerPluginLoader(this: LoaderContext<VueSsrAssetsServerLoaderOptions>, source: string): string {
     const options = this.getOptions()
-    const ssrContextTracker = options.ssrContextTracker ?? '_matchedComponents'
+    const ssrContextTracker = options.ssrContextTracker
 
     const regex = options.isScriptSetup
         ? /setup\(__props\)\s+{/
