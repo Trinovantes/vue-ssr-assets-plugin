@@ -92,7 +92,7 @@ import { createSSRApp } from 'vue'
 import { createRouter } from 'vue-router'
 import { renderToString } from '@vue/server-renderer'
 import { readFileSync } from 'fs'
-import { AssetsManifest, VueSsrAssetRenderer } from 'vue-ssr-assets-plugin'
+import { VueSsrAssetRenderer } from 'vue-ssr-assets-plugin/dist/utils/VueSsrAssetsRenderer'
 
 /**
  * After renderToString(), ssrContext._matchedComponents will contain
@@ -135,5 +135,6 @@ async function handleRequest(req, res) {
     `)
 }
 ```
+**Important:** You need to import the full path to `VueSsrAssetsRenderer` instead of the index file because this package is generated as a CommonJS format for compatibility with older NodeJS runtimes. As a result, Webpack cannot tree shake this Webpack plugin that's also imported inside the index file. If you tried to import the index file in your runtime code, then your production bundle will try to import `webpack` which should be a `devDependency` and crash.
 
 See the [example](https://github.com/Trinovantes/vue-ssr-assets-plugin/tree/master/example) directory for a full example.
