@@ -1,4 +1,4 @@
-import { CHUNK_ID_PLACEHOLDER, PLUGIN_NAME } from '../Constants'
+import { PLUGIN_NAME } from '../Constants'
 import type { LoaderContext } from 'webpack'
 import type { VueSsrAssetsServerLoaderOptions } from './VueSsrAssetsServerLoaderOptions'
 
@@ -26,7 +26,7 @@ export function VueSsrAssetsServerPluginLoader(this: LoaderContext<VueSsrAssetsS
 
     const injection = `;(() => {
         const ctx = useSSRContext();
-        ctx.${ssrContextTracker}.add(${CHUNK_ID_PLACEHOLDER});
+        ctx.${ssrContextTracker}.add(${JSON.stringify(options.componentName)});
     })();`
 
     const modifiedSource = '' +

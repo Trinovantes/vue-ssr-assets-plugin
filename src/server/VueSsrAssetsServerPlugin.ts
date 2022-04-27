@@ -1,8 +1,7 @@
-import { CHUNK_ID_PLACEHOLDER, PLUGIN_NAME } from '../Constants'
+import { PLUGIN_NAME } from '../Constants'
 import { getComponentName } from '../utils/getComponentName'
 import path from 'path'
-import { Compiler, javascript, NormalModule, WebpackPluginInstance } from 'webpack'
-import { ReplaceValueDependency } from './ReplaceValueDependency'
+import { Compiler, NormalModule, WebpackPluginInstance } from 'webpack'
 import { validateServerPluginOptions, VueSsrAssetsServerPluginOptions } from './VueSsrAssetsServerPluginOptions'
 import { existsSync } from 'fs'
 import type { VueSsrAssetsServerLoaderOptions } from './VueSsrAssetsServerLoaderOptions'
@@ -22,7 +21,6 @@ export class VueSsrAssetsServerPlugin implements WebpackPluginInstance {
         }
 
         this.#setupLoader(compiler)
-        this.#setupPlaceholderReplacer(compiler)
     }
 
     /**
@@ -67,10 +65,13 @@ export class VueSsrAssetsServerPlugin implements WebpackPluginInstance {
                     ? loaderItems.findIndex((loaderItem) => loaderItem.loader.includes('vue-loader/dist/index.js')) // Inject into <script> after it gets processed by vue-loader
                     : loaderItems.findIndex((loaderItem) => loaderItem.loader.includes('vue-loader/dist/templateLoader.js')) // Inject into ssrRender after <template> is processed by vue-loader
 
+                const componentName = getComponentName(normalModule)
+                assert(componentName)
+
                 const options: VueSsrAssetsServerLoaderOptions = {
                     ...this.#options,
                     isScriptSetup,
-                    componentName: getComponentName(normalModule) ?? '',
+                    componentName,
                 }
 
                 loaderItems.splice(insertLoaderIdx, 0, {
@@ -80,30 +81,6 @@ export class VueSsrAssetsServerPlugin implements WebpackPluginInstance {
                     type: null,
                 })
             })
-        })
-    }
-
-    // Set up hooks to replace CHUNK_ID_PLACEHOLDER added in previous step
-    #setupPlaceholderReplacer(compiler: Compiler) {
-        compiler.hooks.compilation.tap(PLUGIN_NAME, (compilation) => {
-            compilation.dependencyTemplates.set(ReplaceValueDependency, new ReplaceValueDependency.Template())
-        })
-
-        compiler.hooks.normalModuleFactory.tap(PLUGIN_NAME, (normalModuleFactory) => {
-            const onParserCreated = (parser: javascript.JavascriptParser) => {
-                parser.hooks.expression.for(CHUNK_ID_PLACEHOLDER).tap(PLUGIN_NAME, (expr) => {
-                    const componentFileName = getComponentName(parser.state.module)
-                    if (!componentFileName) {
-                        return
-                    }
-
-                    parser.state.module.addDependency(new ReplaceValueDependency(expr, componentFileName))
-                })
-            }
-
-            normalModuleFactory.hooks.parser.for('javascript/auto').tap(PLUGIN_NAME, onParserCreated)
-            normalModuleFactory.hooks.parser.for('javascript/dynamic').tap(PLUGIN_NAME, onParserCreated)
-            normalModuleFactory.hooks.parser.for('javascript/esm').tap(PLUGIN_NAME, onParserCreated)
         })
     }
 }
