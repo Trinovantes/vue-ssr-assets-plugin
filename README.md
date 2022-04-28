@@ -1,6 +1,6 @@
 # Vue SSR Assets Plugin
 
-This is a Webpack 5 plugin for Vue 3 SSR applications to generate manifest of critical assets. This package consists of two plugins: one for the client bundle and one for the server bundle similar to how SSR in Vue 2 worked.
+This is a Webpack 5 plugin for Vue 3 SSR applications to generate the manifest of critical assets. This package consists of two plugins: one for the client bundle and one for the server bundle similar to how SSR in Vue 2 worked.
 
 Out of the box, Vue 3 SSR loads the entry bundle (e.g. `main.js`) that then asynchronously loads the remaining files needed for the page. However, this results in a poor user experience due to [FOUC](https://en.wikipedia.org/wiki/Flash_of_unstyled_content) and poor web performance scores.
 
