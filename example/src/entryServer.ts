@@ -1,10 +1,10 @@
-import express from 'express'
-import http from 'http'
 import assert from 'assert'
-import { VueSsrAssetRenderer } from '../../src'
-import { renderToString } from '@vue/server-renderer'
-import { createApp } from './app'
+import http from 'http'
 import path from 'path'
+import { renderToString } from '@vue/server-renderer'
+import express from 'express'
+import { VueSsrAssetRenderer } from '../../src'
+import { createApp } from './app'
 
 // -----------------------------------------------------------------------------
 // Express

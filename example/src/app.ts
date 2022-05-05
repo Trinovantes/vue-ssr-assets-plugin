@@ -1,8 +1,8 @@
 import { createSSRApp } from 'vue'
 import App from './components/App.vue'
 import { createAppRouter } from './router'
-import type { createRouter } from 'vue-router'
 import type { SSRContext } from '@vue/server-renderer'
+import type { createRouter } from 'vue-router'
 
 interface CreatedApp {
     app: ReturnType<typeof createSSRApp>

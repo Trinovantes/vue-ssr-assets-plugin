@@ -1,5 +1,5 @@
-import type { SSRContext } from '@vue/server-renderer'
 import { createMemoryHistory, createRouter, createWebHistory, type Router } from 'vue-router'
+import type { SSRContext } from '@vue/server-renderer'
 
 // ----------------------------------------------------------------------------
 // Router

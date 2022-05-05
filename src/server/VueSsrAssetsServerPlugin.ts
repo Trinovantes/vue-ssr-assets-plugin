@@ -1,11 +1,11 @@
-import { PLUGIN_NAME } from '../Constants'
-import { getComponentName } from '../utils/getComponentName'
+import assert from 'assert'
+import { existsSync } from 'fs'
 import path from 'path'
 import { Compiler, NormalModule, WebpackPluginInstance } from 'webpack'
+import { PLUGIN_NAME } from '../Constants'
+import { getComponentName } from '../utils/getComponentName'
 import { validateServerPluginOptions, VueSsrAssetsServerPluginOptions } from './VueSsrAssetsServerPluginOptions'
-import { existsSync } from 'fs'
 import type { VueSsrAssetsServerLoaderOptions } from './VueSsrAssetsServerLoaderOptions'
-import assert from 'assert'
 
 export class VueSsrAssetsServerPlugin implements WebpackPluginInstance {
     #options: Required<VueSsrAssetsServerPluginOptions>

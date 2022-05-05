@@ -1,7 +1,7 @@
 import path from 'path'
-import type { Chunk, Compilation } from 'webpack'
 import { getComponentName } from './getComponentName'
 import { getPublicPath } from './getPublicPath'
+import type { Chunk, Compilation } from 'webpack'
 
 export type ComponentDependencyMap = Map<string, Set<string>>
 
