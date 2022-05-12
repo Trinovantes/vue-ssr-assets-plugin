@@ -13,7 +13,7 @@ export function VueSsrAssetsServerPluginLoader(this: LoaderContext<VueSsrAssetsS
 
     const match = regex.exec(source)
     if (!match) {
-        const logger = this.getLogger(PLUGIN_NAME)
+        const logger = typeof this.getLogger === 'function' ? this.getLogger(PLUGIN_NAME) : console;
         logger.warn(`Failed to inject runtime code into "${options.componentName}"`)
         return source
     }
