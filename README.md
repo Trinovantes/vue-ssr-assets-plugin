@@ -4,18 +4,16 @@ This is a Webpack 5 plugin for Vue 3 SSR applications to generate the manifest o
 
 Out of the box, Vue 3 SSR loads the entry bundle (e.g. `main.js`) that then asynchronously loads the remaining files needed for the page. However, this results in a poor user experience due to [FOUC](https://en.wikipedia.org/wiki/Flash_of_unstyled_content) and poor web performance scores.
 
-### Before
+### Before ([Vue 3 SSR guide](https://vuejs.org/guide/scaling-up/ssr.html))
 
 ```html
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="/public/main.64381ac7ca0c0b20aee8.css">
-    <link rel="preload" href="/public/main.222b5c717defa040360d.js" as="script">
 </head>
 <body>
     <div id="app">...</div>
-    <script src="/public/main.222b5c717defa040360d.js" defer></script>
+    <script src="main.js" defer></script>
 </body>
 </html>
 ```
@@ -26,14 +24,14 @@ Out of the box, Vue 3 SSR loads the entry bundle (e.g. `main.js`) that then asyn
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="/public/main.64381ac7ca0c0b20aee8.css">
-    <link rel="preload" href="/public/main.222b5c717defa040360d.js" as="script">
-    <link rel="preload" href="/public/762.402cdc4e5ac18e420857.js" as="script"> <!-- New -->
+    <link rel="stylesheet" href="/public/main.css"> <!-- New -->
+    <link rel="preload" href="/public/main.js" as="script"> <!-- New -->
+    <link rel="preload" href="/public/example_src_components_HomePage_vue.js" as="script"> <!-- New -->
 </head>
 <body>
     <div id="app">...</div>
-    <script src="/public/main.222b5c717defa040360d.js" defer></script>
-    <script src="/public/762.402cdc4e5ac18e420857.js" defer></script> <!-- New -->
+    <script src="/public/main.js" defer></script>
+    <script src="/public/example_src_components_HomePage_vue.js" defer></script> <!-- New -->
 </body>
 </html>
 ```
