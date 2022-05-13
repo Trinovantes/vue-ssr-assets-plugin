@@ -2027,7 +2027,14 @@ babel-plugin-polyfill-regenerator@^0.3.0:
   dependencies:
     "@babel/helper-define-polyfill-provider" "^0.3.1"
 
-babel-plugin-transform-define@^2.0.0:
+babel-plugin-root-import@^6.6.0:
+  version "6.6.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-root-import/-/babel-plugin-root-import-6.6.0.tgz#85940840f308a8c292f66ca0b5bdd314046273ed"
+  integrity sha512-SPzVOHd7nDh5loZwZBxtX/oOu1MXeKjTkz+1VnnzLWC0dk8sJIGC2IDQ2uWIBjE5mUtXlQ35MTHSqN0Xn7qHrg==
+  dependencies:
+    slash "^3.0.0"
+
+babel-plugin-transform-define@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-define/-/babel-plugin-transform-define-2.0.1.tgz#6a34fd6ea89989feb75721ee4cce817ec779be7f"
   integrity sha512-7lDR1nFGSJHmhq/ScQtp9LTDmNE2yKPoLtwfiu+WQZnj84XL/J/5AZWZXwYcOwbDtUPhtg+y0yxTiP/oGDU6Kw==

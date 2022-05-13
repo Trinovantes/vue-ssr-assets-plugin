@@ -24,21 +24,6 @@
         "exWatch": "cross-env NODE_ENV=development nodemon -r source-map-support/register dist/example/www.js --watch dist/example",
         "exStart": "cross-env NODE_ENV=production  node    -r source-map-support/register dist/example/www.js"
     },
-    "babel": {
-        "presets": [
-            "@babel/preset-env",
-            "@babel/preset-typescript"
-        ],
-        "plugins": [
-            [
-                "@babel/transform-runtime"
-            ],
-            [
-                "transform-define",
-                {}
-            ]
-        ]
-    },
     "jest": {
         "bail": true,
         "setupFiles": [
@@ -66,7 +51,8 @@
         "@typescript-eslint/eslint-plugin": "^5.10.0",
         "@typescript-eslint/parser": "^5.19.0",
         "@vue/server-renderer": "^3.2.33",
-        "babel-plugin-transform-define": "^2.0.0",
+        "babel-plugin-root-import": "^6.6.0",
+        "babel-plugin-transform-define": "^2.0.1",
         "copy-webpack-plugin": "^10.2.4",
         "cross-env": "^7.0.3",
         "css-loader": "^6.7.1",
