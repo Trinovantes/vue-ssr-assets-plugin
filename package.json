@@ -24,12 +24,6 @@
         "exWatch": "cross-env NODE_ENV=development nodemon -r source-map-support/register dist/example/www.js --watch dist/example",
         "exStart": "cross-env NODE_ENV=production  node    -r source-map-support/register dist/example/www.js"
     },
-    "jest": {
-        "bail": true,
-        "setupFiles": [
-            "./tests/setup.ts"
-        ]
-    },
     "dependencies": {
         "ajv": "^8.6.0"
     },
@@ -71,6 +65,7 @@
         "null-loader": "^4.0.1",
         "sass": "^1.50.0",
         "sass-loader": "^12.6.0",
+        "ts-node": "^10.7.0",
         "typescript": "^4.2.4",
         "vue": "^3.2.33",
         "vue-loader": "^17.0.0",
