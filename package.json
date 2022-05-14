@@ -28,7 +28,9 @@
         "ajv": "^8.6.0"
     },
     "peerDependencies": {
-        "webpack": "^5.28.0"
+        "vue": "^3",
+        "vue-loader": "^17",
+        "webpack": "^5"
     },
     "devDependencies": {
         "@babel/core": "^7.12.10",
