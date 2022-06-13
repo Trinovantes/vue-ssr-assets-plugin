@@ -4,7 +4,7 @@ import path from 'path'
 import { renderToString } from '@vue/server-renderer'
 import express from 'express'
 import { VueSsrAssetRenderer } from '../../src'
-import { createApp } from './app'
+import { createVueApp } from './createVueApp'
 
 // -----------------------------------------------------------------------------
 // Express
@@ -45,7 +45,7 @@ function createVueHandler() {
             _matchedComponents: new Set<string>(),
         }
 
-        const { app, router } = await createApp(ssrContext)
+        const { app, router } = await createVueApp(ssrContext)
         if (router.currentRoute.value.fullPath !== targetUrl) {
             res.redirect(router.currentRoute.value.fullPath)
             return

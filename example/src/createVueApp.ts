@@ -9,7 +9,7 @@ interface CreatedApp {
     router: ReturnType<typeof createRouter>
 }
 
-export async function createApp(ssrContext?: SSRContext): Promise<CreatedApp> {
+export async function createVueApp(ssrContext?: SSRContext): Promise<CreatedApp> {
     // Vue
     const app = createSSRApp(App)
 
