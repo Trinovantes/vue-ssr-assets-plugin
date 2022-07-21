@@ -1,4 +1,4 @@
-import { VueSsrAssetsServerPluginOptions, validateServerPluginOptions } from '../src/server/VueSsrAssetsServerPluginOptions'
+import { VueSsrAssetsServerPluginOptions, validateServerPluginOptions } from '@/server/VueSsrAssetsServerPluginOptions'
 
 describe('VueSsrAssetsServerPluginOptions', () => {
     test('no options', () => {
