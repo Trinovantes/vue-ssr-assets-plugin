@@ -20,7 +20,7 @@ export class VueSsrAssetRenderer {
         return this.#manifest
     }
 
-    renderAssets(matchedComponents: Iterable<string>): { header: string; footer: string } {
+    renderAssets(matchedComponents: Iterable<string>, renderScriptPreloads = true): { header: string; footer: string } {
         const components = [
             this.#entry,
             ...matchedComponents,
@@ -44,8 +44,12 @@ export class VueSsrAssetRenderer {
         for (const css of allCss) {
             header += `<link rel="stylesheet" href="${css}">\n`
         }
+
         for (const js of allJs) {
-            header += `<link rel="preload" href="${js}" as="script">\n`
+            if (renderScriptPreloads) {
+                header += `<link rel="preload" href="${js}" as="script">\n`
+            }
+
             footer += `<script src="${js}" defer></script>\n`
         }
 
