@@ -60,7 +60,8 @@ const clientEntryConfig = merge(commonConfig, {
 
 ### Example Manifest
 
-```json{
+```json
+{
    "main":{
       "js":[
          "/public/main.36e325f82fb1e4e13943.js"
