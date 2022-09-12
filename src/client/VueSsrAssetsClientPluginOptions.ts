@@ -1,6 +1,6 @@
 import Ajv from 'ajv'
 
-export interface VueSsrAssetsClientPluginOptions {
+export type VueSsrAssetsClientPluginOptions = {
     fileName: string
 }
 

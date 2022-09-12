@@ -1,6 +1,6 @@
 import Ajv from 'ajv'
 
-export interface VueSsrAssetsServerPluginOptions {
+export type VueSsrAssetsServerPluginOptions = {
     ssrContextTracker?: string
 }
 

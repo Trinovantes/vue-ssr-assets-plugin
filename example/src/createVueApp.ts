@@ -4,7 +4,7 @@ import { createAppRouter } from './router'
 import type { SSRContext } from '@vue/server-renderer'
 import type { createRouter } from 'vue-router'
 
-interface CreatedApp {
+type CreatedApp = {
     app: ReturnType<typeof createSSRApp>
     router: ReturnType<typeof createRouter>
 }
