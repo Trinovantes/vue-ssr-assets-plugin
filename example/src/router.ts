@@ -1,11 +1,11 @@
 import { createMemoryHistory, createRouter, createWebHistory, type Router } from 'vue-router'
-import type { SSRContext } from '@vue/server-renderer'
+import type { AppContext } from './AppContext'
 
 // ----------------------------------------------------------------------------
 // Router
 // ----------------------------------------------------------------------------
 
-export async function createAppRouter(ssrContext?: SSRContext): Promise<Router> {
+export async function createAppRouter(ssrContext?: AppContext): Promise<Router> {
     const router = createRouter({
         history: ssrContext !== undefined
             ? createMemoryHistory()
@@ -31,7 +31,7 @@ export async function createAppRouter(ssrContext?: SSRContext): Promise<Router> 
         ],
     })
 
-    if (typeof ssrContext?.url === 'string') {
+    if (ssrContext?.url) {
         await router.push(ssrContext.url)
     }
 
