@@ -4,7 +4,6 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import { VueLoaderPlugin } from 'vue-loader'
 import { Configuration, DefinePlugin } from 'webpack'
 import merge from 'webpack-merge'
-import nodeExternals from 'webpack-node-externals'
 import { VueSsrAssetsClientPlugin, VueSsrAssetsServerPlugin } from '../src'
 
 // ----------------------------------------------------------------------------
@@ -173,16 +172,7 @@ const serverEntryConfig = merge(commonConfig, {
     ],
 
     externals: [
-        nodeExternals({
-            // Do not externalize dependencies that need to be processed by webpack.
-            // You should also whitelist deps that modify `global` (e.g. polyfills)
-            allowlist: [
-                /^quasar*/,
-                /\.(css|sass|scss)$/,
-                /\.(vue)$/,
-                /\.(html)$/,
-            ],
-        }),
+        'express',
     ],
 })
 

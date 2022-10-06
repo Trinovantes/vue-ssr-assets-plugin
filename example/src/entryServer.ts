@@ -3,7 +3,7 @@ import http from 'http'
 import path from 'path'
 import { renderToString } from '@vue/server-renderer'
 import express from 'express'
-import { VueSsrAssetRenderer } from '../../src'
+import { VueSsrAssetRenderer } from '../../src/utils/VueSsrAssetsRenderer'
 import { createVueApp } from './createVueApp'
 
 // -----------------------------------------------------------------------------
