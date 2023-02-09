@@ -1,5 +1,5 @@
-import type { AssetsManifest } from '../client/AssetsManifest'
 import type { ComponentDependencyMap } from './findComponentDependencies'
+import type { AssetsManifest } from '../client/AssetsManifest'
 
 export function exportDependencyMap(dependencyMap: ComponentDependencyMap) {
     const json: AssetsManifest = {}
