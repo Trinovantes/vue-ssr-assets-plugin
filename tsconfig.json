@@ -10,7 +10,7 @@
 
         "target": "es2020",
         "module": "commonjs",
-        "moduleResolution": "node",
+        "moduleResolution": "nodenext",
 
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,

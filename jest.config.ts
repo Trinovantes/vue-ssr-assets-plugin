@@ -1,4 +1,4 @@
-import type { Config } from '@jest/types/build/index'
+import type { Config } from '@jest/types'
 
 const config: Config.InitialOptions = {
     bail: true,
