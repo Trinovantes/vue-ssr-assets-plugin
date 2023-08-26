@@ -1,4 +1,3 @@
-import path from 'path'
 import { getComponentName } from './getComponentName'
 import { getPublicPath } from './getPublicPath'
 import type { Chunk, Compilation } from 'webpack'
@@ -16,7 +15,7 @@ export function findComponentDependencies(compilation: Compilation): ComponentDe
 
         for (const file of chunk.files) {
             const publicPath = getPublicPath(compilation, file)
-            dependencies.add(path.join(publicPath, file))
+            dependencies.add(publicPath + file)
         }
     }
 
