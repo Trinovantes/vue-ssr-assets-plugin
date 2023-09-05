@@ -8,13 +8,13 @@ export function VueSsrAssetsServerPluginLoader(this: LoaderContext<VueSsrAssetsS
     const ssrContextTracker = options.ssrContextTracker
 
     const regex = options.isScriptSetup
-        ? /setup\(__props\)\s+{/
+        ? /setup\(__props(, \{[ \w]*\})?\)\s+{/
         : /export function ssrRender[^{]*{/
 
     const match = regex.exec(source)
     if (!match) {
         const logger = this.getLogger(PLUGIN_NAME)
-        logger.warn(`Failed to inject runtime code into "${options.componentName}"`)
+        logger.warn(`Failed to inject runtime code into "${options.componentName}" isScriptSetup:${options.isScriptSetup}`)
         return source
     }
 
