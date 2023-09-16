@@ -8,7 +8,7 @@ export function VueSsrAssetsServerPluginLoader(this: LoaderContext<VueSsrAssetsS
     const ssrContextTracker = options.ssrContextTracker
 
     const regex = options.isScriptSetup
-        ? /setup\(__props(, \{[ \w]*\})?\)\s+{/
+        ? /setup\(__props(: any)?(, \{[ \w]*\})?\)\s+{/
         : /export function ssrRender[^{]*{/
 
     const match = regex.exec(source)
