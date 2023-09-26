@@ -1,11 +1,11 @@
 import { VueSsrAssetsServerPluginOptions, validateServerPluginOptions } from '@/server/VueSsrAssetsServerPluginOptions'
+import { describe, test, expect } from 'vitest'
 
 describe('VueSsrAssetsServerPluginOptions', () => {
     test('no options', () => {
         const options: VueSsrAssetsServerPluginOptions = {}
 
         expect(validateServerPluginOptions(options)).toBe(true)
-        expect(typeof options.ssrContextTracker).toBe('string')
     })
 
     test('string ssrContextTracker', () => {

@@ -1,26 +1,16 @@
-import Ajv from 'ajv'
+import { Type, Static } from '@sinclair/typebox'
+import { Value } from '@sinclair/typebox/value'
 
-export type VueSsrAssetsServerPluginOptions = {
-    ssrContextTracker?: string
-}
-
-const ajv = new Ajv({ useDefaults: true })
-const validator = ajv.compile({
-    type: 'object',
-    properties: {
-        ssrContextTracker: {
-            type: 'string',
-            default: '_matchedComponents',
-        },
-    },
+const tbVueSsrAssetsServerPluginOptions = Type.Object({
+    ssrContextTracker: Type.Optional(Type.String()),
 })
 
-export function validateServerPluginOptions(options: unknown): options is Required<VueSsrAssetsServerPluginOptions> {
-    const isValid = validator(options)
-    if (!isValid) {
-        console.warn('Invalid VueSsrAssetsServerPluginOptions', validator.errors)
+export type VueSsrAssetsServerPluginOptions = Static<typeof tbVueSsrAssetsServerPluginOptions>
+
+export function validateServerPluginOptions(options: unknown): options is VueSsrAssetsServerPluginOptions {
+    if (!Value.Check(tbVueSsrAssetsServerPluginOptions, options)) {
         throw new Error('Invalid VueSsrAssetsServerPluginOptions')
     }
 
-    return isValid
+    return true
 }

@@ -9,23 +9,30 @@
         "dist/*",
         "src/*"
     ],
-    "repository": "https://github.com/Trinovantes/vue-ssr-assets-plugin",
-    "author": "Stephen Li <hello@stephenli.ca> (https://www.stephenli.ca)",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Trinovantes/vue-ssr-assets-plugin"
+    },
+    "author": {
+        "name": "Stephen",
+        "email": "hello@stephenli.ca",
+        "url": "https://www.stephenli.ca"
+    },
     "license": "MIT",
     "private": false,
     "scripts": {
         "dev": "  cross-env NODE_ENV=development tsc -p tsconfig.prod.json --watch",
         "build": "cross-env NODE_ENV=production  tsc -p tsconfig.prod.json",
         "prepublishOnly": "rm -rf ./dist && yarn build",
-        "lint": "eslint --ext .ts,.js,.vue --ignore-path .gitignore .",
-        "test": "jest",
+        "lint": "vue-tsc --noemit && eslint --ext .ts,.js,.vue --ignore-path .gitignore .",
+        "test": "vitest",
         "exDev": "  cross-env NODE_ENV=development webpack --watch --config example/webpack.config.ts",
         "exBuild": "cross-env NODE_ENV=production  webpack         --config example/webpack.config.ts",
         "exWatch": "cross-env NODE_ENV=development nodemon -r source-map-support/register dist/example/www.js --watch dist/example",
         "exStart": "cross-env NODE_ENV=production  node    -r source-map-support/register dist/example/www.js"
     },
     "dependencies": {
-        "ajv": "^8.6.0"
+        "@sinclair/typebox": "^0.31.17"
     },
     "peerDependencies": {
         "vue": "^3",
@@ -33,49 +40,39 @@
         "webpack": "^5"
     },
     "devDependencies": {
-        "@babel/core": "^7.12.10",
-        "@babel/plugin-transform-runtime": "^7.15.0",
-        "@babel/preset-env": "^7.12.11",
-        "@babel/preset-typescript": "^7.12.7",
-        "@babel/register": "^7.13.14",
         "@types/express": "^4.17.11",
-        "@types/jest": "^29.4.0",
         "@types/jsdom": "^21.1.0",
-        "@types/node": "^18.15.5",
+        "@types/node": "^20.7.0",
         "@types/webpack": "^5.28.0",
-        "@typescript-eslint/eslint-plugin": "^5.10.0",
-        "@typescript-eslint/parser": "^5.19.0",
+        "@typescript-eslint/eslint-plugin": "^6.7.3",
+        "@typescript-eslint/parser": "^6.7.3",
         "@vue/server-renderer": "^3.2.33",
-        "babel-plugin-root-import": "^6.6.0",
-        "babel-plugin-transform-define": "^2.0.1",
         "copy-webpack-plugin": "^11.0.0",
         "cross-env": "^7.0.3",
         "css-loader": "^6.7.1",
-        "esbuild-loader": "^3.0.0",
+        "esbuild-loader": "^4.0.2",
         "eslint": "^8.7.0",
         "eslint-config-standard": "^17.0.0-0",
         "eslint-import-resolver-typescript": "^3.5.3",
         "eslint-plugin-import": "^2.26.0",
-        "eslint-plugin-n": "^15.0.1",
+        "eslint-plugin-n": "^16.1.0",
         "eslint-plugin-node": "^11.1.0",
         "eslint-plugin-promise": "^6.0.0",
         "eslint-plugin-vue": "^9.9.0",
         "express": "^4.17.3",
-        "jest": "^29.4.2",
         "mini-css-extract-plugin": "^2.6.0",
         "null-loader": "^4.0.1",
         "sass": "^1.50.0",
         "sass-loader": "^13.2.0",
         "ts-node": "^10.7.0",
         "typescript": "^5.0.2",
+        "vitest": "^0.34.5",
         "vue": "^3.2.33",
         "vue-loader": "^17.0.0",
         "vue-router": "^4.0.14",
+        "vue-tsc": "^1.8.15",
         "webpack": "^5.72.0",
         "webpack-cli": "^5.0.1",
         "webpack-merge": "^5.8.0"
-    },
-    "engines": {
-        "node": ">=14"
     }
 }

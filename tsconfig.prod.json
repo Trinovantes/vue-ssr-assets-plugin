@@ -5,6 +5,6 @@
         "dist",
         "tests",
         "example",
-        "jest.config.ts",
+        "vite.config.ts",
     ],
 }

@@ -1,26 +1,16 @@
-import Ajv from 'ajv'
+import { Type, Static } from '@sinclair/typebox'
+import { Value } from '@sinclair/typebox/value'
 
-export type VueSsrAssetsClientPluginOptions = {
-    fileName: string
-}
-
-const ajv = new Ajv()
-const validator = ajv.compile({
-    type: 'object',
-    required: ['fileName'],
-    properties: {
-        fileName: {
-            type: 'string',
-        },
-    },
+const tbVueSsrAssetsClientPluginOptions = Type.Object({
+    fileName: Type.String(),
 })
 
+export type VueSsrAssetsClientPluginOptions = Static<typeof tbVueSsrAssetsClientPluginOptions>
+
 export function validateClientPluginOptions(options: unknown): options is VueSsrAssetsClientPluginOptions {
-    const isValid = validator(options)
-    if (!isValid) {
-        console.warn('Invalid VueSsrAssetsClientPluginOptions', validator.errors)
+    if (!Value.Check(tbVueSsrAssetsClientPluginOptions, options)) {
         throw new Error('Invalid VueSsrAssetsClientPluginOptions')
     }
 
-    return isValid
+    return true
 }

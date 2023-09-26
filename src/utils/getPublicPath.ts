@@ -1,5 +1,5 @@
-import path from 'path'
-import type { Compilation } from 'webpack'
+import path from 'node:path'
+import { Compilation } from 'webpack'
 
 export function getPublicPath(compilation: Compilation, assetOutputName: string): string {
     const webpackPublicPath = compilation.getAssetPath(compilation.outputOptions.publicPath ?? '/', { hash: compilation.hash })

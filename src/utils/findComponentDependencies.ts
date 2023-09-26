@@ -1,6 +1,6 @@
 import { getComponentName } from './getComponentName'
 import { getPublicPath } from './getPublicPath'
-import type { Chunk, Compilation } from 'webpack'
+import { Chunk, Compilation } from 'webpack'
 
 export type ComponentDependencyMap = Map<string, Set<string>>
 
@@ -20,6 +20,10 @@ export function findComponentDependencies(compilation: Compilation): ComponentDe
     }
 
     for (const chunk of compilation.chunks) {
+        if (!chunk.name) {
+            continue
+        }
+
         if (compilation.entries.has(chunk.name)) {
             // Special case when chunk.name is defined (this is an entry chunk)
             addChunkAsDependency(chunk.name, chunk)

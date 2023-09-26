@@ -1,6 +1,6 @@
 import { PLUGIN_NAME } from '../Constants'
-import type { VueSsrAssetsServerLoaderOptions } from './VueSsrAssetsServerLoaderOptions'
-import type { LoaderContext } from 'webpack'
+import { VueSsrAssetsServerLoaderOptions } from './VueSsrAssetsServerLoaderOptions'
+import { LoaderContext } from 'webpack'
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export function VueSsrAssetsServerPluginLoader(this: LoaderContext<VueSsrAssetsServerLoaderOptions>, source: string): string {

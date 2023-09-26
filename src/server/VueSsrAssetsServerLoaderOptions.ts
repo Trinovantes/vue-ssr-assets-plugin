@@ -1,4 +1,4 @@
-import type { VueSsrAssetsServerPluginOptions } from './VueSsrAssetsServerPluginOptions'
+import { VueSsrAssetsServerPluginOptions } from './VueSsrAssetsServerPluginOptions'
 
 export type VueSsrAssetsServerLoaderOptions = {
     componentName: string

@@ -1,4 +1,5 @@
 import { VueSsrAssetsClientPluginOptions, validateClientPluginOptions } from '@/client/VueSsrAssetsClientPluginOptions'
+import { describe, test, expect } from 'vitest'
 
 describe('VueSsrAssetsClientPluginOptions', () => {
     test('no options should throw', () => {

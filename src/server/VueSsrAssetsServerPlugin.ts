@@ -1,17 +1,17 @@
-import assert from 'assert'
-import { existsSync } from 'fs'
-import path from 'path'
+import assert from 'node:assert'
+import { existsSync } from 'node:fs'
+import path from 'node:path'
 import { Compiler, NormalModule, WebpackPluginInstance } from 'webpack'
-import { PLUGIN_NAME } from '../Constants'
+import { PLUGIN_NAME, SSR_CONTEXT_TRACKER } from '../Constants'
 import { getComponentName } from '../utils/getComponentName'
 import { validateServerPluginOptions, VueSsrAssetsServerPluginOptions } from './VueSsrAssetsServerPluginOptions'
-import type { VueSsrAssetsServerLoaderOptions } from './VueSsrAssetsServerLoaderOptions'
+import { VueSsrAssetsServerLoaderOptions } from './VueSsrAssetsServerLoaderOptions'
 
 export class VueSsrAssetsServerPlugin implements WebpackPluginInstance {
-    #options: Required<VueSsrAssetsServerPluginOptions>
+    #options: VueSsrAssetsServerPluginOptions
 
     constructor(options: VueSsrAssetsServerPluginOptions = {}) {
-        assert(validateServerPluginOptions(options))
+        validateServerPluginOptions(options)
         this.#options = options
     }
 
@@ -39,10 +39,10 @@ export class VueSsrAssetsServerPlugin implements WebpackPluginInstance {
                 const request = normalModule.request
 
                 // e.g. esbuild-loader!/App.vue?vue&type=script&setup=true
-                const isScriptSetup = /\.vue\?vue&type=script/.test(request) && /setup=true/.test(request)
+                const isScriptSetup = request.includes('.vue?vue&type=script') && request.includes('setup=true')
 
                 // e.g. esbuild-loader!/App.vue?vue&type=template
-                const isTemplate = /\.vue\?vue&type=template/.test(request) && !isScriptSetup
+                const isTemplate = request.includes('.vue?vue&type=template') && !isScriptSetup
 
                 if (!isScriptSetup && !isTemplate) {
                     return
@@ -69,7 +69,7 @@ export class VueSsrAssetsServerPlugin implements WebpackPluginInstance {
                 assert(componentName)
 
                 const options: VueSsrAssetsServerLoaderOptions = {
-                    ...this.#options,
+                    ssrContextTracker: this.#options.ssrContextTracker ?? SSR_CONTEXT_TRACKER,
                     isScriptSetup,
                     componentName,
                 }

@@ -136,7 +136,7 @@ import App from './App.vue'
 import { createSSRApp } from 'vue'
 import { createRouter } from 'vue-router'
 import { renderToString } from '@vue/server-renderer'
-import { readFileSync } from 'fs'
+import { readFileSync } from 'node:fs'
 import { VueSsrAssetRenderer } from 'vue-ssr-assets-plugin/dist/utils/VueSsrAssetsRenderer'
 
 /**

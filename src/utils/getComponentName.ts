@@ -1,4 +1,4 @@
-import type { Module } from 'webpack'
+import { Module } from 'webpack'
 
 export function getComponentName(module: Module): string | undefined {
     const moduleImport = module.identifier() // e.g. esbuild-loader!/App.vue?vue&type=script&lang=ts

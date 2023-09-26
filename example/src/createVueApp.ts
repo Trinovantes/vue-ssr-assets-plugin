@@ -1,8 +1,8 @@
 import { createSSRApp } from 'vue'
 import App from './components/App.vue'
 import { createAppRouter } from './router'
-import type { AppContext } from './AppContext'
-import type { createRouter } from 'vue-router'
+import { AppContext } from './AppContext'
+import { createRouter } from 'vue-router'
 
 type VueApp = {
     app: ReturnType<typeof createSSRApp>

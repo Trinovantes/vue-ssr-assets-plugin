@@ -1,6 +1,9 @@
 {
     "ts-node": {
         "transpileOnly": true,
+        "compilerOptions": {
+            "module": "CommonJS",
+        },
     },
     "compilerOptions": {
         "strict": true,
@@ -8,15 +11,14 @@
         "declaration": true,
         "declarationMap": true,
 
-        "target": "es2020",
-        "module": "commonjs",
-        "moduleResolution": "nodenext",
+        "target": "ESNext",
+        "module": "CommonJS",
+        "moduleResolution": "Node10",
 
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "resolveJsonModule": true,
         "forceConsistentCasingInFileNames": true,
-        "jsx": "preserve",
         "skipLibCheck": true,
 
         "noUnusedLocals": true,
@@ -31,6 +33,8 @@
         },
     },
     "exclude": [
+        "**/raw/**/*",
+        "**/*.html",
         "node_modules",
         "dist",
     ],

@@ -1,6 +1,6 @@
-import assert from 'assert'
+import assert from 'node:assert'
 import http from 'http'
-import path from 'path'
+import path from 'node:path'
 import { renderToString } from '@vue/server-renderer'
 import express from 'express'
 import { VueSsrAssetRenderer } from '../../src/utils/VueSsrAssetsRenderer'

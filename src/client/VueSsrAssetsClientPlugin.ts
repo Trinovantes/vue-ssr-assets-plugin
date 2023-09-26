@@ -1,5 +1,4 @@
-import assert from 'assert'
-import path from 'path'
+import path from 'node:path'
 import { sources, Compiler, WebpackPluginInstance, Compilation } from 'webpack'
 import { PLUGIN_NAME } from '../Constants'
 import { exportDependencyMap } from '../utils/exportDependencyMap'
@@ -7,10 +6,10 @@ import { findComponentDependencies } from '../utils/findComponentDependencies'
 import { validateClientPluginOptions, VueSsrAssetsClientPluginOptions } from './VueSsrAssetsClientPluginOptions'
 
 export class VueSsrAssetsClientPlugin implements WebpackPluginInstance {
-    #options: Required<VueSsrAssetsClientPluginOptions>
+    #options: VueSsrAssetsClientPluginOptions
 
     constructor(options: VueSsrAssetsClientPluginOptions) {
-        assert(validateClientPluginOptions(options))
+        validateClientPluginOptions(options)
         this.#options = options
     }
 
