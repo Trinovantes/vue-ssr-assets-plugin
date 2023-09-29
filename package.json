@@ -1,6 +1,6 @@
 {
     "name": "vue-ssr-assets-plugin",
-    "version": "0.3.7",
+    "version": "0.3.8",
     "description": "Webpack 5 plugin for Vue 3 SSR applications to generate the manifest of critical assets",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
