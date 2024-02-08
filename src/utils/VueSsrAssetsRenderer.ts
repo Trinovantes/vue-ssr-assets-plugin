@@ -20,7 +20,7 @@ export class VueSsrAssetRenderer {
         return this.#manifest
     }
 
-    renderAssets(matchedComponents: Iterable<string>, renderScriptPreloads = true): { header: string; footer: string } {
+    renderAssets(matchedComponents: Iterable<string>, renderScriptPreloads = true, excludeHotUpdate = false): { header: string; footer: string } {
         const components = [
             this.#entry,
             ...matchedComponents,
@@ -48,6 +48,9 @@ export class VueSsrAssetRenderer {
         for (const js of allJs) {
             if (renderScriptPreloads) {
                 header += `<link rel="preload" href="${js}" as="script">\n`
+            }
+            if (excludeHotUpdate && js.endsWith('.hot-update.js')) {
+                continue
             }
 
             footer += `<script src="${js}" defer></script>\n`
