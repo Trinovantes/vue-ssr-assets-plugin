@@ -46,11 +46,12 @@ export class VueSsrAssetRenderer {
         }
 
         for (const js of allJs) {
-            if (renderScriptPreloads) {
-                header += `<link rel="preload" href="${js}" as="script">\n`
-            }
             if (excludeHotUpdate && js.endsWith('.hot-update.js')) {
                 continue
+            }
+
+            if (renderScriptPreloads) {
+                header += `<link rel="preload" href="${js}" as="script">\n`
             }
 
             footer += `<script src="${js}" defer></script>\n`
