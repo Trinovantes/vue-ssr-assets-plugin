@@ -28,6 +28,14 @@ export async function createAppRouter(ssrContext?: AppContext): Promise<Router> 
                 path: '/c',
                 component: () => import('./components/VueOptions.vue'),
             },
+            {
+                path: '/d',
+                component: () => import('./components/VueFontDirect.vue'),
+            },
+            {
+                path: '/e',
+                component: () => import('./components/VueFontFromCss.vue'),
+            },
         ],
     })
 

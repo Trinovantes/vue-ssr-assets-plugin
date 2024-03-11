@@ -5,6 +5,8 @@
             <router-link to="/a">A</router-link>
             <router-link to="/b">B</router-link>
             <router-link to="/c">C</router-link>
+            <router-link to="/d">D</router-link>
+            <router-link to="/e">E</router-link>
         </h1>
 
         <div>

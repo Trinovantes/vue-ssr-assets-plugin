@@ -8,6 +8,7 @@ export function exportDependencyMap(dependencyMap: ComponentDependencyMap) {
         json[componentName] = {
             js: [...dependencies].filter((fileName) => fileName.endsWith('.js')),
             css: [...dependencies].filter((fileName) => fileName.endsWith('.css')),
+            fonts: [...dependencies].filter((fileName) => fileName.endsWith('.ttf') || fileName.endsWith('.eot') || fileName.endsWith('.woff') || fileName.endsWith('.woff2')),
         }
     }
 

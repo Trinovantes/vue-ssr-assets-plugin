@@ -20,7 +20,7 @@ export class VueSsrAssetRenderer {
         return this.#manifest
     }
 
-    renderAssets(matchedComponents: Iterable<string>, renderScriptPreloads = true, excludeHotUpdate = false): { header: string; footer: string } {
+    renderAssets(matchedComponents: Iterable<string>, renderScriptPreloads = true, excludeHotUpdate = false, renderFontPreloads = false): { header: string; footer: string } {
         const components = [
             this.#entry,
             ...matchedComponents,
@@ -28,6 +28,7 @@ export class VueSsrAssetRenderer {
 
         const allJs = new Set<string>()
         const allCss = new Set<string>()
+        const allFonts = new Set<string>()
 
         for (const componentName of components) {
             for (const dep of this.#manifest[componentName]?.js ?? []) {
@@ -36,6 +37,9 @@ export class VueSsrAssetRenderer {
             for (const dep of this.#manifest[componentName]?.css ?? []) {
                 allCss.add(dep)
             }
+            for (const dep of this.#manifest[componentName]?.fonts ?? []) {
+                allFonts.add(dep)
+            }
         }
 
         let header = ''
@@ -43,6 +47,19 @@ export class VueSsrAssetRenderer {
 
         for (const css of allCss) {
             header += `<link rel="stylesheet" href="${css}">\n`
+        }
+
+        for (const font of allFonts) {
+            if (!renderFontPreloads) {
+                continue
+            }
+
+            const fontType = /\.(?<fontExt>ttf|eot|woff2?)$/.exec(font)?.groups?.fontExt
+            if (!fontType) {
+                continue
+            }
+
+            header += `<link rel="preload" href="${font}" as="font" type="font/${fontType}">\n`
         }
 
         for (const js of allJs) {

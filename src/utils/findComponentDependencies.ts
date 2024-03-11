@@ -17,6 +17,11 @@ export function findComponentDependencies(compilation: Compilation): ComponentDe
             const publicPath = getPublicPath(compilation, file)
             dependencies.add(publicPath + file)
         }
+
+        for (const file of chunk.auxiliaryFiles) {
+            const publicPath = getPublicPath(compilation, file)
+            dependencies.add(publicPath + file)
+        }
     }
 
     for (const chunk of compilation.chunks) {

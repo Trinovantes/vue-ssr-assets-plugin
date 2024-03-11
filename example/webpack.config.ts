@@ -119,6 +119,10 @@ const clientEntryConfig = merge(commonConfig, {
                     },
                 ],
             },
+            {
+                test: /\.(ttf|eot|woff2?)$/,
+                type: 'asset',
+            },
         ],
     },
 
@@ -163,6 +167,10 @@ const serverEntryConfig = merge(commonConfig, {
             {
                 // Do not emit css in the server bundle
                 test: /\.(css|sass|scss)$/,
+                use: 'null-loader',
+            },
+            {
+                test: /\.(ttf|eot|woff2?)$/,
                 use: 'null-loader',
             },
         ],
