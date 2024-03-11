@@ -1,6 +1,12 @@
 import { readFileSync } from 'node:fs'
 import { AssetsManifest } from '../client/AssetsManifest'
 
+export type RenderOptions = Partial<{
+    excludeHotUpdateScripts: boolean
+    renderScriptPreloads: boolean
+    renderFontPreloads: boolean
+}>
+
 export class VueSsrAssetRenderer {
     #manifest: AssetsManifest
     #entry: string
@@ -20,11 +26,15 @@ export class VueSsrAssetRenderer {
         return this.#manifest
     }
 
-    renderAssets(matchedComponents: Iterable<string>, renderScriptPreloads = true, excludeHotUpdate = false, renderFontPreloads = false): { header: string; footer: string } {
+    renderAssets(matchedComponents: Iterable<string>, opts?: RenderOptions): { header: string; footer: string } {
         const components = [
             this.#entry,
             ...matchedComponents,
         ]
+
+        const excludeHotUpdateScripts = opts?.excludeHotUpdateScripts ?? true
+        const renderFontPreloads = opts?.renderFontPreloads ?? true
+        const renderScriptPreloads = opts?.renderScriptPreloads ?? true
 
         const allJs = new Set<string>()
         const allCss = new Set<string>()
@@ -63,7 +73,7 @@ export class VueSsrAssetRenderer {
         }
 
         for (const js of allJs) {
-            if (excludeHotUpdate && js.endsWith('.hot-update.js')) {
+            if (excludeHotUpdateScripts && js.endsWith('.hot-update.js')) {
                 continue
             }
 

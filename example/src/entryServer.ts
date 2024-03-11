@@ -53,7 +53,7 @@ function createVueHandler() {
 
         // Render the app on the server
         const appHtml = await renderToString(app, ssrContext)
-        const { header, footer } = assetRenderer.renderAssets(ssrContext._matchedComponents, true, true, true)
+        const { header, footer } = assetRenderer.renderAssets(ssrContext._matchedComponents)
 
         console.info()
         console.info('manifest', assetRenderer.manifest)
