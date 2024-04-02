@@ -5,6 +5,6 @@ async function main() {
     app.mount('#app')
 }
 
-main().catch((err) => {
+main().catch((err: unknown) => {
     console.warn(err)
 })

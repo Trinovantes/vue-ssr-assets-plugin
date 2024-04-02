@@ -1,5 +1,5 @@
 import assert from 'node:assert'
-import http from 'http'
+import http from 'node:http'
 import path from 'node:path'
 import { renderToString } from '@vue/server-renderer'
 import express from 'express'
@@ -30,7 +30,9 @@ app.use(DEFINE.PUBLIC_PATH, express.static(DEFINE.CLIENT_DIST_DIR))
 
 function createAsyncHandler(handler: (req: express.Request, res: express.Response, next: express.NextFunction) => Promise<void>): express.RequestHandler {
     return (req, res, next) => {
-        handler(req, res, next).catch(next)
+        handler(req, res, next).catch((err: unknown) => {
+            next(err)
+        })
     }
 }
 
