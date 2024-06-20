@@ -5,6 +5,6 @@
         "dist",
         "tests",
         "example",
-        "vite.config.ts",
+        "vite.config.mts",
     ],
 }

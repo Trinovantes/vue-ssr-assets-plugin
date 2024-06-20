@@ -44,9 +44,9 @@ const commonConfig: Configuration = {
 
     plugins: [
         new DefinePlugin({
-            __VUE_OPTIONS_API__: JSON.stringify(true),
-            __VUE_PROD_DEVTOOLS__: JSON.stringify(false),
-            __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: JSON.stringify(false),
+            '__VUE_OPTIONS_API__': JSON.stringify(true),
+            '__VUE_PROD_DEVTOOLS__': JSON.stringify(false),
+            '__VUE_PROD_HYDRATION_MISMATCH_DETAILS__': JSON.stringify(false),
 
             'DEFINE.PUBLIC_PATH': JSON.stringify(publicPath),
             'DEFINE.CLIENT_DIST_DIR': JSON.stringify(distClientDir),

@@ -12,14 +12,16 @@
         "declarationMap": true,
 
         "target": "ESNext",
-        "module": "CommonJS",
-        "moduleResolution": "Node10",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
 
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "resolveJsonModule": true,
         "forceConsistentCasingInFileNames": true,
         "skipLibCheck": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
 
         "noUnusedLocals": true,
         "noImplicitReturns": true,
@@ -40,6 +42,6 @@
     ],
     "include": [
         "**/*",
-        ".eslintrc.js",
+        "eslint.config.mjs",
     ],
 }
