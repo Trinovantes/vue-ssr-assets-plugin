@@ -3,6 +3,7 @@
         "transpileOnly": true,
         "compilerOptions": {
             "module": "CommonJS",
+            "moduleResolution": "Node10",
         },
     },
     "compilerOptions": {
@@ -12,8 +13,8 @@
         "declarationMap": true,
 
         "target": "ESNext",
-        "module": "NodeNext",
-        "moduleResolution": "NodeNext",
+        "module": "CommonJS",
+        "moduleResolution": "Node10",
 
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
