@@ -1,10 +1,14 @@
 {
     "extends": "./tsconfig.json",
     "exclude": [
+        "**/dist",
+        "**/raw",
+        "**/*.html",
         "node_modules",
-        "dist",
-        "tests",
+        "demo",
+        "docs",
         "example",
-        "vite.config.mts",
+        "tests",
+        "vite.config*.*ts",
     ],
 }
