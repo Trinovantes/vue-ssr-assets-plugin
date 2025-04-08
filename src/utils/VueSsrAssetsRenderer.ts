@@ -5,6 +5,7 @@ export type RenderOptions = Partial<{
     excludeHotUpdateScripts: boolean
     renderScriptPreloads: boolean
     renderFontPreloads: boolean
+    scriptCspNonce: string
 }>
 
 export class VueSsrAssetRenderer {
@@ -81,7 +82,11 @@ export class VueSsrAssetRenderer {
                 header += `<link rel="preload" href="${js}" as="script">\n`
             }
 
-            footer += `<script src="${js}" defer></script>\n`
+            if (opts?.scriptCspNonce) {
+                footer += `<script src="${js}" defer nonce="${opts.scriptCspNonce}"></script>\n`
+            } else {
+                footer += `<script src="${js}" defer></script>\n`
+            }
         }
 
         return {
