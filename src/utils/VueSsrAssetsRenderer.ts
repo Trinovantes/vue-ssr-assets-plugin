@@ -78,15 +78,13 @@ export class VueSsrAssetRenderer {
                 continue
             }
 
+            const nonceAttr = opts?.scriptCspNonce ? `nonce="${opts.scriptCspNonce}"` : ''
+
             if (renderScriptPreloads) {
-                header += `<link rel="preload" href="${js}" as="script">\n`
+                header += `<link rel="preload" href="${js}" as="script" ${nonceAttr}>\n`
             }
 
-            if (opts?.scriptCspNonce) {
-                footer += `<script src="${js}" defer nonce="${opts.scriptCspNonce}"></script>\n`
-            } else {
-                footer += `<script src="${js}" defer></script>\n`
-            }
+            footer += `<script src="${js}" defer ${nonceAttr}></script>\n`
         }
 
         return {
