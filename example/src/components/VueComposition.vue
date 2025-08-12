@@ -1,5 +1,6 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
+import SharedComponent from './SharedComponent.vue'
 
 export default defineComponent({
     props: {
@@ -7,6 +8,10 @@ export default defineComponent({
             type: Number,
             default: 1,
         },
+    },
+
+    components: {
+        SharedComponent,
     },
 
     setup(props) {
@@ -31,6 +36,8 @@ export default defineComponent({
             v-if="num < 5"
             :num="childNum"
         />
+
+        <SharedComponent />
     </article>
 </template>
 

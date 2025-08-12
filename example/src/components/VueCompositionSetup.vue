@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
+import SharedComponent from './SharedComponent.vue'
 
 const props = defineProps({
     num: {
@@ -22,6 +23,8 @@ const childNum = computed(() => props.num + 1)
             v-if="num < 5"
             :num="childNum"
         />
+
+        <SharedComponent />
     </article>
 </template>
 

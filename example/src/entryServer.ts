@@ -39,6 +39,7 @@ function createAsyncHandler(handler: (req: express.Request, res: express.Respons
 function createVueHandler() {
     assert(DEFINE.MANIFEST_FILE)
     const assetRenderer = new VueSsrAssetRenderer(DEFINE.MANIFEST_FILE)
+    console.info('manifest', assetRenderer.manifest)
 
     return createAsyncHandler(async(req, res) => {
         const targetUrl = req.originalUrl
@@ -56,10 +57,7 @@ function createVueHandler() {
         // Render the app on the server
         const appHtml = await renderToString(app, ssrContext)
         const { header, footer } = assetRenderer.renderAssets(ssrContext._matchedComponents)
-
-        console.info()
-        console.info('manifest', assetRenderer.manifest)
-        console.info('matchedComponents', ssrContext._matchedComponents)
+        console.info(`targetUrl:"${targetUrl}"`, 'matchedComponents', ssrContext._matchedComponents)
 
         res.setHeader('Content-Type', 'text/html')
         res.status(200)
