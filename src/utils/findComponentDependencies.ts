@@ -24,19 +24,36 @@ export function findComponentDependencies(compilation: Compilation): ComponentDe
         }
     }
 
+    // Webpack has a bipartite graph of input files (modules) to output files (chunks)
+    // We iterate over each output file and register their respective input files in the manifest
     for (const chunk of compilation.chunks) {
         if (chunk.name && compilation.entries.has(chunk.name)) {
-            // Special case when chunk.name is defined (this is an entry chunk)
+            // Special case when chunk.name is defined (i.e. an entry chunk like 'main.js')
             addChunkAsDependency(chunk.name, chunk)
         } else {
-            // Find all modules that this chunk is generated from and add this chunk as their dependencies
+            // Find the module that this chunk is generated from and add this chunk as its dependent
             for (const module of compilation.chunkGraph.getChunkModules(chunk)) {
-                const componentFileName = getComponentName(module)
-                if (!componentFileName) {
+                // Ignore non Vue component files
+                const vueComponentFileName = getComponentName(module)
+                if (!vueComponentFileName) {
                     continue
                 }
 
-                addChunkAsDependency(componentFileName, chunk)
+                // Ignore components that results in multiple chunk files
+                //
+                // e.g.
+                //
+                //      If `SharedComponent.vue` is used by `PageA.vue` and `PageB.vue` and is small enough to be embeded in both files (depends on webpack's optimization settings),
+                //      then we want to avoid registering `PageA.js` and `PageB.js` to `SharedComponent.vue` by skipping `SharedComponent.vue` altogether
+                //
+                //      This also should not result in a FOUC since `PageA.js` or `PageB.js` should already contain `SharedComponent.vue`'s data
+                //
+                const moduleChunks = compilation.chunkGraph.getModuleChunks(module)
+                if (moduleChunks.length !== 1) {
+                    continue
+                }
+
+                addChunkAsDependency(vueComponentFileName, chunk)
             }
         }
     }
