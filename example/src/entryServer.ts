@@ -41,7 +41,7 @@ function createVueHandler() {
     const assetRenderer = new VueSsrAssetRenderer(DEFINE.MANIFEST_FILE)
     console.info('manifest', assetRenderer.manifest)
 
-    return createAsyncHandler(async(req, res) => {
+    return createAsyncHandler(async (req, res) => {
         const targetUrl = req.originalUrl
         const ssrContext = {
             url: targetUrl,

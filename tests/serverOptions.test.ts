@@ -1,5 +1,5 @@
-import { VueSsrAssetsServerPluginOptions, validateServerPluginOptions } from '@/server/VueSsrAssetsServerPluginOptions'
 import { describe, test, expect } from 'vitest'
+import { validateServerPluginOptions, VueSsrAssetsServerPluginOptions } from '../src/index'
 
 describe('VueSsrAssetsServerPluginOptions', () => {
     test('no options', () => {
