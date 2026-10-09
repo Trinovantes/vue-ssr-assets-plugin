@@ -35,6 +35,7 @@
         "useUnknownInCatchVariables": true,
         "verbatimModuleSyntax": false,
 
+        "rootDir": ".",
         "outDir": "dist",
         "paths": {
             "tests/*": ["./tests/*"],
